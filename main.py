@@ -4,7 +4,7 @@ import time
 import MetaTrader5 as mt5
 import pandas as pd
 
-from config import MT5_ACCOUNT, MT5_PASSWORD, MT5_SERVER, SYMBOL, TP, SL, LOT, SCALPING, DAY_TRADE
+from config import MT5_ACCOUNT, MT5_PASSWORD, MT5_SERVER, SYMBOL, LOT
 from strategy import generate_signal, calculate_atr
 from trading import execute_trade
 from utils import log_trade
@@ -26,6 +26,7 @@ def connect_mt5(account, password, server):
         print(f"  {prop} = {account_info_dict[prop]}")
     return True
 
+
 def fetch_data(symbol, timeframe, start, end):
     rates = mt5.copy_rates_range(symbol, timeframe, start, end)
     if rates is None or len(rates) == 0:
@@ -39,6 +40,7 @@ def fetch_data(symbol, timeframe, start, end):
 
     rates_frame['time'] = pd.to_datetime(rates_frame['time'], unit='s')
     return rates_frame
+
 
 def main():
     # Connect to the account
@@ -73,7 +75,7 @@ def main():
             start_time = current_time
             time.sleep(1)
 
+
 if __name__ == "__main__":
     # https://chatgpt.com/c/699ff565-d3d1-479a-adc6-f33b40bd8c9c
     main()
-
